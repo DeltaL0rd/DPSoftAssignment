@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/VRLobbyScene.unity
+    guid: 91434f2e710dd9f40b00c832dd6ea2d2
+  - enabled: 1
     path: Assets/Scenes/VRGameScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    guid: 2fe87e66d6cacd14e8bd283a6bb4ca39
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 282efd7b389ff1e47a8e6d3ca20a1ec7, type: 2}
