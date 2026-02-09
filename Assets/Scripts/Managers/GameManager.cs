@@ -30,9 +30,5 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Spawned player for Client: " + clientId);
     }
-
-    private void OnDestroy()
-    {
-        NetworkManager.Singleton.OnClientConnectedCallback -= SpawnPlayer;
-    }
+    
 }

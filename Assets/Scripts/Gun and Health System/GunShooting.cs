@@ -1,8 +1,9 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GunShooting : MonoBehaviour
+public class GunShooting : NetworkBehaviour
 {
     public Camera playerCamera;
     public float range = 100f;
@@ -18,6 +19,7 @@ public class GunShooting : MonoBehaviour
    
     void Update()
     {
+        if(!IsOwner) return;
         if (fireTriggerButton.action.triggered)
         {
             Shoot();
