@@ -1,19 +1,13 @@
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-public class LobbyUIManager : NetworkBehaviour
+public class LobbyUIManager : MonoBehaviour
 {
     [SerializeField] private Button createGameButton;
     [SerializeField] private Button joinGameButton;
-
+   
     private void Awake()
     {
-        createGameButton.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartHost();
-            NetworkManager.Singleton.SceneManager.LoadScene("VRGameScene", LoadSceneMode.Single);
-        });
-        joinGameButton.onClick.AddListener(() => { NetworkManager.Singleton.StartClient(); });
+        createGameButton.onClick.AddListener(() => { LobbyManager.Instance.CreateGame(); });
+        joinGameButton.onClick.AddListener(() => { LobbyManager.Instance.JoinGame(); });
     }
 }
