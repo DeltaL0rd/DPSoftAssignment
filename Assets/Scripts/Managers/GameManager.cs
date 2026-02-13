@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private GameObject playerPrefab;
 
+    public List<NetworkObject> players = new List<NetworkObject>();
     private void Awake()
     {
         // For Host joined
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
         // This line makes it THAT CLIENT'S PLAYER
         player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
         player.transform.position = spawnPoints[NetworkManager.Singleton.ConnectedClients.Count-1].position;
-
+        
         Debug.Log("Spawned player for Client: " + clientId);
     }
     

@@ -1,19 +1,24 @@
+using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class HealthSystem : MonoBehaviour
+public class HealthSystem : NetworkBehaviour
 {
-     public float health = 50f;
-
-    public void TakeDamage(float amount)
+   [SerializeField] private float maxHealth = 100f;
+    public static Action<float> OnTakeDamage;
+    public static Action OnDeath;
+     public void TakeDamage(float amount)
     {
-        health -= amount;
-
-        if (health <= 0)
+        maxHealth -= amount;
+        OnTakeDamage?.Invoke(maxHealth);
+        if (maxHealth <= 0)
             Die();
     }
 
     void Die()
     {
-        Destroy(gameObject);
+        OnDeath?.Invoke();
+        Debug.Log("DEAD");
+        //Disable the player then enable after a time interval at a random spawn Position with full health that's it
     }
 }

@@ -2365,6 +2365,7 @@ GameObject:
   - component: {fileID: 5506688449743185702}
   - component: {fileID: 2230761048273863278}
   - component: {fileID: 5530014998797903743}
+  - component: {fileID: 2056178302306057326}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -2452,6 +2453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a3ef84d9c3bf74a9d13f9a66b90303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   head: {fileID: 2258797515381008280}
   yOffset: 0
 --- !u!114 &5506688449743185702
@@ -2466,6 +2468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a158bb001738d7e468c663d83c2ae619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   playerCamera: {fileID: 7454162322218565221}
   range: 100
   hitMask:
@@ -2498,7 +2501,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f631d56f3873714eb13ebcdc8f9f8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  ShowTopMostFoldoutHeaderGroup: 1
+  health:
+    m_InternalValue: 100
 --- !u!114 &5530014998797903743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2545,6 +2550,29 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!136 &2056178302306057326
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3321735462803424922}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.50000006
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.00000011920929, z: -0.00000023841858}
 --- !u!1 &3953109233610765782
 GameObject:
   m_ObjectHideFlags: 0

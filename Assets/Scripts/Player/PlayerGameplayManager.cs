@@ -5,7 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 public class PlayerGameplayManager : NetworkBehaviour
 {
-    [SerializeField] private GameObject bodyObject;
+    public GameObject bodyObject;
     [SerializeField] private GameObject[] unwantedObjects;
     [SerializeField] private Camera othersCameraObject;
     //Clean up Components or Gameobjects for other players

@@ -42,7 +42,9 @@ public class GunShooting : NetworkBehaviour
 
         if (Physics.Raycast(ray, out hit, range, hitMask))
         {
-            hit.collider.GetComponent<HealthSystem>()?.TakeDamage(10);
+            //hit.collider.GetComponent<HealthSystem>()?.TakeDamage(10);
+            ulong targetClientId = hit.collider.transform.parent.transform.GetComponent<NetworkObject>().OwnerClientId;
+            HandleGiveDamage(targetClientId);
             endPoint = hit.point;
         }
         else
@@ -54,6 +56,59 @@ public class GunShooting : NetworkBehaviour
             StopCoroutine(trailRoutine);
 
         trailRoutine = StartCoroutine(MoveTrail(endPoint));
+    }
+
+    private void HandleGiveDamage(ulong  targetClientId)
+    {
+        if (IsServer)
+        {
+            OnPlayerGiveDamageClientRpc(targetClientId,OwnerClientId,new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = new ulong[] { targetClientId }
+                }
+            });
+        }
+        else
+        {
+            OnPlayerGiveDamageServerRpc(targetClientId);
+        }
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    private void OnPlayerGiveDamageServerRpc(ulong targetClientId, ServerRpcParams serverRpcParams = default)
+    {
+        var sender = serverRpcParams.Receive.SenderClientId;
+        OnPlayerGiveDamageClientRpc(targetClientId, sender, new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { targetClientId }
+            }
+        });
+    }
+
+    [ClientRpc]
+    private void OnPlayerGiveDamageClientRpc(ulong targetClientId, ulong sourceClientId,
+        ClientRpcParams clientRpcParams = default)
+    {
+        Debug.Log($"{sourceClientId} shoot -10dmg {targetClientId}");
+
+        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(targetClientId, out var client))
+        {
+            NetworkObject playerObject = client.PlayerObject;
+
+            if (playerObject != null)
+            {
+                GameObject player = playerObject.gameObject;
+                Debug.Log("Found Player: " + player.name);
+                //It hurts me on every shoot 
+                // Very Bad Approach :-( sorry no time 
+                // Good approach to store the players data in a Networks sync Dictonary to access cliet Id with there object? I have done this in my projects earlier
+                player.GetComponent<PlayerGameplayManager>().bodyObject.GetComponent<HealthSystem>().TakeDamage(10);
+            }
+        }
     }
 
     IEnumerator MoveTrail(Vector3 end)
